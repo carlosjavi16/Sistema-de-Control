@@ -2,6 +2,7 @@
 //Luis Lira C.I.:31.564.286
 // Fabiola Andrade C.I.:31.209.874
 // Carlos Belmonte C.I:31.722.091
+// Keiber Acero C.I:32.589.206
 #include <stdio.h>
 int main(){
 int fortuna=0;
@@ -24,6 +25,9 @@ case 2:
     break;
 case 3:
     printf("\nHoy es un buen dia para culpar a un tercero. Si falla tu codigo, fue el sistema operativo.");
+    break;
+case 4:
+    pritnf("\nHoy sera el dia que no tengas mas sal que el mar.");
     break;
 default:
     printf("\nSea serio ombe pon la vaina como eh!!\n");
