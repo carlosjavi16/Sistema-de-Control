@@ -1,10 +1,10 @@
-//Oliver Garcia C.I:32.396.121
-//Luis Lira C.I.:31.564.286
-// Fabiola Andrade C.I.:31.209.874
-// Carlos Belmonte C.I:31.722.091
-// Khristian Lima  C.I:28.372.514
-// Keiber Acero C.I:32.589.206
-// Carlos Ruiz C.I:30.663.314
+//Oliver Garcia C.I:32.396.121 [OG-Oliver]
+//Luis Lira C.I.:31.564.286 [LuixL]
+// Fabiola Andrade C.I.:31.209.874 [Fabiola Andrade]
+// Carlos Belmonte C.I:31.722.091 [spyke]
+// Khristian Lima  C.I:28.372.514 [khristian]
+// Keiber Acero C.I:32.589.206 [keiber-05]
+// Carlos Ruiz C.I:30.663.314 [NanoSVz]
 #include <stdio.h>
 int main(){
 int fortuna=0;
