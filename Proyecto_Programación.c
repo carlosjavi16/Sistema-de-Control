@@ -1,6 +1,7 @@
 //khristian lima 28.372.514
 //Carlos Ruiz 30.663.314
 //Carlos Belmonte 31.722.091
+//Fabiola Andrade 31.209.874
 
 #include <iostream>
 #include <limits>
@@ -77,8 +78,43 @@ for(int i = 0; i< numeroEstudiantes; i++){
 			float promedio =suma /numeroEstudiantes;
 		
 cout << "\nEl promedio de notas es: " << promedio << endl;
+// Opcion para buscar estudiante.
+char deseaBuscar;
+        cout << "\n¿Desea buscar algun estudiante en particular? S/N: ";
+        cin >> deseaBuscar;
 
-}else{
+        if (deseaBuscar == 's' || deseaBuscar == 'S') {
+            char buscarOtraVez;
+            do {
+                string nombreBusqueda;
+                bool encontrado = false;
+
+                cout << "\n--- BUSCAR ESTUDIANTE ---" << endl;
+                cout << "Ingrese el nombre del estudiante que desea buscar: ";
+                cin >> nombreBusqueda;
+
+                for(int i = 0; i < numeroEstudiantes; i++) {
+                    if(lista[i].nombre == nombreBusqueda) {
+                        cout << "\n¡Estudiante encontrado!" << endl;
+                        cout << "Nombre completo: " << lista[i].nombre << " " << lista[i].apellido << endl;
+                        cout << "Nota: " << lista[i].nota << endl;
+                        cout << "Asistencia: " << (lista[i].presente ? "Asistio" : "Falto") << endl;
+                        encontrado = true;
+                        break; 
+                    }
+                }
+
+                if(!encontrado) {
+                    cout << "\nNo se encontro ningun estudiante con el nombre: " << nombreBusqueda << endl;
+                }
+
+                cout << "\n¿Desea buscar otro estudiante? (S para buscar / N para salir): ";
+                cin >> buscarOtraVez;
+
+            } while(buscarOtraVez == 's' || buscarOtraVez == 'S');
+        }
+
+        // Al terminar la búsqueda o si dijo que "No", el programa llega aquí y se despide.
 	cout<<"\n\nHasta luego, que tenga buen dia";
 }
 return 0;
