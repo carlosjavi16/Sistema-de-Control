@@ -193,7 +193,6 @@ int main(){
                         cout << "Nota: " << lista[i].nota << endl;
                         cout << "Asistencia: " << (lista[i].presente ? "Asistio" : "Falto") << endl;
                         encontrado = true;
-                        break; 
                     }
                 }
 
