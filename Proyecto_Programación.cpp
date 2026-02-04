@@ -2,9 +2,10 @@
 //Carlos Ruiz 30.663.314
 //Carlos Belmonte 31.722.091
 //Fabiola Andrade 31.209.874
+//Oliver Garcia 32.396.121
 //Luis Lira 31.564.286
 //Keiber Acero 32.589.206
-//Orlianis Garcia
+//Orlianis Garcia 31.855.788
 
 #include <iostream>
 #include <limits>
@@ -21,6 +22,37 @@ struct Estudiante {
     bool presente; // true = Asistió, false = Faltó
 };
 
+//--Funcion para guardar datos en un archivo TXT--
+void guardarDatos(const vector<Estudiante>& lista) {
+ofstream archivo("estudiantes.txt"); //Crea o sobrescribe el archivo
+if (archivo.is_open()) {
+for(size_t i=0;i<lista.size();i++) {
+//guarda Nombre apellido nota y asistencia
+archivo << lista[i].nombre << " "
+	<< lista [i].apellido << " "
+	<< lista [i].nota << " "
+	<< lista [i].presente << endl;
+}
+archivo.close();
+cout << "\n---Datos guardados correctamente en estudiantes.txt ---" << endl;
+} else {
+cout << "\nError al guardar el archivo." << endl;
+}
+}
+
+//-- Funcion para cargar datos del archivo TXT--
+void cargarDatos(vector<Estudiante>& lista) {
+ifstream archivo("estudiantes.txt");// Abre el archivo para la lectura
+if (archivo.is_open()) {
+Estudiante est;
+//lee en el mismo orden que guardo
+while (archivo >> est.nombre >> est.apellido >> est.nota >> est.presente) {
+lista.push_back(est);
+}
+archivo.close();
+}
+}
+
 //Recursividad para calcular las asistencias
 int calcularAsistenciasRecursivo(const vector<Estudiante>& lista, int indice) {
     if (indice == (int)lista.size()) {
@@ -31,10 +63,19 @@ int calcularAsistenciasRecursivo(const vector<Estudiante>& lista, int indice) {
 }
 
 int main(){
+	vector<Estudiante> lista;
+	cargarDatos(lista);
 	int numeroEstudiantes;
+	int cantidadNuevos;
 	char opcion,asistencia;
 	
 	cout << "\tSistema de Control de estudiantes en un Taller" << endl;
+		//Mostrar estado actual
+	if(!lista.empty()) {
+		cout << "\nSe han cargado [" << lista.size() << "] Estudiantes guardados anteriormente." << endl;
+		cout << "-Desea ingresar nuevos estudiantes adicionales? S/N: ";
+		cin >> opcion;
+	} else {
 	cout <<"\nNo se poseen datos de estudiantes, desea ingresarlos? S/N: ";
 	cin >> opcion;
 	
@@ -43,21 +84,25 @@ int main(){
 			cout << "\nPor favor ingrese una opcion valida (S o N): ";
             cin >> opcion;
 		}
+	}
 	if(opcion=='S'||opcion=='s'){
 	
-		cout<<"\n¿Cuantos estudiantes desea ingresar al sistema? (indique el numero de estudiantes):";
+		cout<<"\n-Cuantos estudiantes desea ingresar al sistema? (indique el numero de estudiantes):";
 	
-	while(!(cin>>numeroEstudiantes)||numeroEstudiantes < 0){
+	while(!(cin>> cantidadNuevos)||cantidadNuevos< 0){
 		cout<<"\nERROR:Por favor no ingresar letras ni numeros negativos. Ingrese nuevamente el numero:";
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
-	vector<Estudiante> lista(numeroEstudiantes); //Se utiliza para crear una lista dinámica de estudiantes basada en la cantidad ingresada.
-		
-		// Registro de estudiantes y sus notas.
-		for(int i = 0; i < numeroEstudiantes; i++){
+		//--redimensionamos el vector conservado los que ya estaban--
+		int tamanoAnterior = lista.size();
+		lista.resize(tamanoAnterior + cantidadNuevos);
+
+		//registro de estudiantes y notas
+		// el ciclo comienza desde el ultimo que estaba guardado
+		for(int i = tamanoAnterior; i < (tamanoAnterior + cantidadNuevos); i++){
 			
-			cout << "\nIngrese el nombre del estudiante numero " << i+1 << ": ";
+			cout << "\nIngrese el primer nombre del estudiante numero " << i+1 << ": ";
 			cin >> lista[i].nombre;
 			cout << "Ingrese el apellido del estudiante numero " << i+1 << ": ";
 			cin >> lista[i].apellido;
@@ -79,7 +124,11 @@ int main(){
             	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
 		}
-
+	}
+		//---Actualiza la variable numeroEstudiantes al total real---
+		numeroEstudiantes = lista.size();
+		
+if(numeroEstudiantes > 0) {
 		float suma = 0;
 		
 for(int i = 0; i< numeroEstudiantes; i++){
@@ -130,9 +179,13 @@ char deseaBuscar;
 
             } while(buscarOtraVez == 's' || buscarOtraVez == 'S');
         }
-
-        // Al terminar la búsqueda o si dijo que "No", el programa llega aquí y se despide.
-	cout<<"\n\nHasta luego, que tenga buen dia";
+	//Guardamos toda la lista antes de salir
+	guardarDatos(lista);
 }
+		else{
+			cout << "\nNo hay datos para procesar ni guardar" << endl;
+		}
+
+	cout<<"\n\nHasta luego, que tenga buen dia";
 return 0;
 }
